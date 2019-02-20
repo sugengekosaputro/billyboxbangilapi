@@ -86,7 +86,7 @@ class Pembayaran_model extends CI_Model {
 		}
 	}
 
-	public function updateHargaKirim($id_order,$data)
+	public function updatePembayaran($id_order,$data)
 	{
 		$this->db->where('id_order', $id_order)->update($this->tabel, $data);
 		if ($this->db->affected_rows()>0) {

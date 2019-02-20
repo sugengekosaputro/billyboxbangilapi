@@ -67,36 +67,6 @@ class Pemesanan extends REST_Controller {
 			$this->response($data);		}
 	}
 
-	public function getLaba_get()
-	{
-		$id_barang = $this->get('id_barang');
-		$id_pelanggan = $this->get('id_pelanggan');
-		$res = $this->jual_model->tampilHargaJualByPelangganBarang($id_pelanggan,$id_barang);
-		
-		if ($res) {
-			$this->response($res,REST_Controller::HTTP_OK);
-		} else {
-			$this->response([
-				'status' => FALSE,
-				'message' => 'Data Tidak Ada'
-			],REST_Controller::HTTP_NOT_FOUND);
-		}
-	}
-
-	public function getDetailOrder_get()
-	{
-		$id_order = $this->uri->segment(4);
-		$res = $this->pemesanan_model->tampilDetailOrder($id_order);
-		if ($res) {
-			$this->response($res,REST_Controller::HTTP_OK);
-		} else {
-			$this->response([
-				'status' => FALSE,
-				'message' => 'Data Tidak Ada'
-			],REST_Controller::HTTP_NOT_FOUND);
-		}
-	}
-
 	public function index_post()
 	{
 		$tgl_now = date('Y-m-d');
@@ -136,7 +106,7 @@ class Pemesanan extends REST_Controller {
 					'status_pembayaran' => 'Belum Bayar',
 					'jatuh_tempo' => $pembayaran['jatuh_tempo'],
 				);
-				$insertPembayaran = $this->pemesanan_model->insertPembayaran($bodyPembayaran);
+				$insertPembayaran = $this->pembayaran_model->insertPembayaran($bodyPembayaran);// $this->pemesanan_model->insertPembayaran($bodyPembayaran);
 				if($insertPembayaran){
 					$this->response([
 						'status' => TRUE,
@@ -157,6 +127,49 @@ class Pemesanan extends REST_Controller {
 		 ],REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
+
+	public function statusorder_put()
+	{
+		$id = $this->uri->segment(3);
+		$body = array(
+			'status_order' => $this->put('status_order'),
+		);
+
+    $update = $this->pemesanan_model->updateOrder($id,$body);
+		if ($update) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'Data Berhasil Diperbarui'
+			],REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Data Gagal Diperbarui'
+			],REST_Controller::HTTP_BAD_REQUEST);
+		}
+	}
+	
+	public function statusbayar_put()
+	{
+		$id = $this->uri->segment(3);
+		$body = array(
+			'status_pembayaran' => $this->put('status_pembayaran'),
+		);
+
+    $update = $this->pembayaran_model->updatePembayaran($id,$body);
+		if ($update) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'Data Berhasil Diperbarui'
+			],REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Data Gagal Diperbarui'
+			],REST_Controller::HTTP_BAD_REQUEST);
+		}
+//		var_dump($id);
+  }
 
 	public function tesinput_post()
 	{

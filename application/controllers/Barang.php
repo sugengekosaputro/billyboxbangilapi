@@ -52,6 +52,7 @@ class Barang extends REST_Controller {
 					'id'	=>$row['id_barang'],
 					'harga_beli' =>$row['harga_beli'],
 					'id_kategori' =>$row['id_kategori'],
+					'foto_barang' => $row['foto_barang'],
 				);
 			}
 			$this->response($arr,REST_Controller::HTTP_OK);

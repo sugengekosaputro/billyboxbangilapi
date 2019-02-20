@@ -64,23 +64,6 @@ class Pemesanan_model extends CI_Model {
 		}
 	}
 
-	// public function tampilDetailOrder($id_order)
-	// {
-	// 	$this->db->select($this->tb_detail_order.'.*, tb_master_barang.nama_barang, tb_pembayaran.total_bayar,tb_pembayaran.dp, tb_pembayaran.id_pembayaran, (tb_pembayaran.total_bayar - tb_pembayaran.dp) as sisa');
-	// 	$this->db->join('tb_master_barang','tb_detail_order_rev.id_barang = tb_master_barang.id_barang');
-	// 	$this->db->join('tb_pembayaran','tb_detail_order_rev.id_order = tb_pembayaran.id_order');
-	// 	$this->db->where($this->tb_detail_order.'.id_order', $id_order);
-	// 	$query = $this->db->get($this->tb_detail_order);
-	// 	if ($query->num_rows() > 0) {
-	// 		foreach($query->result() as $val){
-	// 			$res[] = $val;
-	// 		}
-	// 		return $res;
-	// 	} else {
-	// 		return FALSE;
-	// 	}
-	// }
-
 	public function tampilDetailOrder($id_order)
 	{
 		$this->db->select($this->tb_detail_order.'.*, tb_master_barang.nama_barang');
@@ -150,16 +133,6 @@ class Pemesanan_model extends CI_Model {
 		}
 	}
 
-	public function updateOrder($id_order,$dataorder)
-	{
-		$this->db->where('id_order', $id_order)->update($this->tb_order, $dataorder);
-		
-		if ($this->db->affected_rows()>0) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
 
 	public function updatePemesanan($id,$data)
 	{
@@ -261,15 +234,26 @@ class Pemesanan_model extends CI_Model {
 		}
 	}
 
-	public function insertPembayaran($data)
+	// public function insertPembayaran($data)
+	// {
+	// 	$this->db->insert($this->tb_pembayaran, $data);
+	// 	if ($this->db->affected_rows()>0) {
+	// 		return TRUE;
+	// 	} else {
+	// 		return FALSE;
+	// 	}
+	// }
+
+	public function updateOrder($id_order,$data)
 	{
-		$this->db->insert($this->tb_pembayaran, $data);
+		$this->db->where('id_order', $id_order)->update($this->tb_order, $data);
+		
 		if ($this->db->affected_rows()>0) {
 			return TRUE;
 		} else {
 			return FALSE;
 		}
-  }
+	}
 
 	public function caridetailOrder($id_order)
 	{

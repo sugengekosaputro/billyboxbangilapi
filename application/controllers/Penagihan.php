@@ -43,6 +43,7 @@ class Penagihan extends REST_Controller {
 	
 	public function pembayaran_post()
 	{
+		$id_order = $this->post('id_order');
 		$data = [
 			'id_pembayaran' => $this->post('id_pembayaran'),
 			'dibayar' => $this->post('dibayar'),
@@ -50,10 +51,19 @@ class Penagihan extends REST_Controller {
 		];
 		$insertPembayaran = $this->pembayaran_model->insertDetailPembayaran($data);
 		if($insertPembayaran){
-			$this->response([
-				'status' => TRUE,
-				'message' => 'Berhasil Input Pembayaran',
-			],REST_Controller::HTTP_OK);
+			$data = array('status_pembayaran' => 'Belum Lunas');
+			$update = $this->pembayaran_model->updatePembayaran($id_order,$data);
+			if($update){
+				$this->response([
+					'status' => TRUE,
+					'message' => 'Berhasil Input Pembayaran',
+				],REST_Controller::HTTP_OK);
+			}else{
+				$this->response([
+					'status' => FALSE,
+				 'message' => 'Gagal Input Pembayaran',
+			 ],REST_Controller::HTTP_BAD_REQUEST);				
+			}
 		}else{
 			$this->response([
 				'status' => FALSE,
@@ -80,8 +90,8 @@ class Penagihan extends REST_Controller {
 				$hrg_array[] = $dt['harga'];
 			}
 			$harga = array('harga_dikirim' => array_sum($hrg_array));
-			//update harga_dikirim			
-			$update = $this->pembayaran_model->updateHargaKirim($id_order,$harga);
+			//update harga_dikirim
+			$update = $this->pembayaran_model->updatePembayaran($id_order,$harga);
 			if($update){
 				$this->response([
 					'status' => TRUE,
