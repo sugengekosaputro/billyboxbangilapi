@@ -76,7 +76,7 @@ class User extends REST_Controller {
 			$body = array(
 				'username' => $this->post('username'),
 				'password' => $this->post('password'),
-				'nama' => $this->post('nama'),
+				'email' => $this->post('email'),
 				'foto' => base_url().'assets/upload/user/'.$data['file_name'], 
 				'role' => $this->post('role'),
 			);
@@ -114,7 +114,7 @@ class User extends REST_Controller {
 			$body = array(
 				'username' => $this->post('username'),
 				'password' => $this->post('password'),
-				'nama' => $this->post('nama'),
+				'email' => $this->post('email'),
 				'role' => $this->post('role'),
 			);
 
