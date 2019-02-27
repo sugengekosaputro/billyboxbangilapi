@@ -98,7 +98,7 @@ class Pembayaran_model extends CI_Model {
 
 	public function hitungStatusByKeyword($keyword)
 	{
-		$this->db->like('status_pembayaran',$keyword, 'both');
+		$this->db->like('status_pembayaran',$keyword);
 		$query = $this->db->get($this->tabel);
 		if ($query->num_rows() > 0) {
 			return $query->num_rows();

@@ -32,11 +32,11 @@ class Pemesanan extends REST_Controller {
 						'order_baru' 		=> $this->pemesanan_model->hitungStatusByKeyword('baru'),
 						'order_proses' 	=> $this->pemesanan_model->hitungStatusByKeyword('proses'),
 						'order_dikirim' => $this->pemesanan_model->hitungStatusByKeyword('dikirim'),
-						'oder_selesai' 	=> $this->pemesanan_model->hitungStatusByKeyword('selesai'),
+						'order_selesai' 	=> $this->pemesanan_model->hitungStatusByKeyword('selesai'),
 					],
 					'pembayaran' => [
 						'belum_bayar' => $this->pembayaran_model->hitungStatusByKeyword('belum bayar'),
-						'dp' 					=> $this->pembayaran_model->hitungStatusByKeyword('dp'),
+						'belum_lunas' => $this->pembayaran_model->hitungStatusByKeyword('belum lunas'),
 						'lunas' 			=> $this->pembayaran_model->hitungStatusByKeyword('lunas'),
 					],
 					'pemesanan' => $pemesanan,
@@ -106,7 +106,7 @@ class Pemesanan extends REST_Controller {
 					'status_pembayaran' => 'Belum Bayar',
 					'jatuh_tempo' => $pembayaran['jatuh_tempo'],
 				);
-				$insertPembayaran = $this->pembayaran_model->insertPembayaran($bodyPembayaran);// $this->pemesanan_model->insertPembayaran($bodyPembayaran);
+				$insertPembayaran = $this->pembayaran_model->insertPembayaran($bodyPembayaran);		
 				if($insertPembayaran){
 					$this->response([
 						'status' => TRUE,

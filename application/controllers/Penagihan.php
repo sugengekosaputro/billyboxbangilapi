@@ -51,19 +51,12 @@ class Penagihan extends REST_Controller {
 		];
 		$insertPembayaran = $this->pembayaran_model->insertDetailPembayaran($data);
 		if($insertPembayaran){
-			$data = array('status_pembayaran' => 'Belum Lunas');
-			$update = $this->pembayaran_model->updatePembayaran($id_order,$data);
-			if($update){
-				$this->response([
-					'status' => TRUE,
-					'message' => 'Berhasil Input Pembayaran',
-				],REST_Controller::HTTP_OK);
-			}else{
-				$this->response([
-					'status' => FALSE,
-				 'message' => 'Gagal Input Pembayaran',
-			 ],REST_Controller::HTTP_BAD_REQUEST);				
-			}
+			$status = array('status_pembayaran' => 'Proses Bayar');
+			$this->pembayaran_model->updatePembayaran($id_order,$status);
+			$this->response([	
+				'status' => TRUE,
+				'message' => 'Berhasil Input Pembayaran',
+			],REST_Controller::HTTP_OK);
 		}else{
 			$this->response([
 				'status' => FALSE,
