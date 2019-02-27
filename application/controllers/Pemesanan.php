@@ -36,7 +36,7 @@ class Pemesanan extends REST_Controller {
 					],
 					'pembayaran' => [
 						'belum_bayar' => $this->pembayaran_model->hitungStatusByKeyword('belum bayar'),
-						'belum_lunas' => $this->pembayaran_model->hitungStatusByKeyword('belum lunas'),
+						'proses_bayar' => $this->pembayaran_model->hitungStatusByKeyword('proses bayar'),
 						'lunas' 			=> $this->pembayaran_model->hitungStatusByKeyword('lunas'),
 					],
 					'pemesanan' => $pemesanan,
