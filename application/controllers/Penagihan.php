@@ -65,6 +65,30 @@ class Penagihan extends REST_Controller {
 		}
 	}
 
+	public function pembayaranlunas_post()
+	{
+		$id_order = $this->post('id_order');
+		$data = [
+			'id_pembayaran' => $this->post('id_pembayaran'),
+			'dibayar' => $this->post('dibayar'),
+			'tanggal' => date('Y-m-d'),
+		];
+		$insertPembayaran = $this->pembayaran_model->insertDetailPembayaran($data);
+		if($insertPembayaran){
+			$status = array('status_pembayaran' => 'Lunas');
+			$this->pembayaran_model->updatePembayaran($id_order,$status);
+			$this->response([	
+				'status' => TRUE,
+				'message' => 'Pembayaran Lunas',
+			],REST_Controller::HTTP_OK);
+		}else{
+			$this->response([
+				'status' => FALSE,
+			 'message' => 'Gagal Input Pembayaran',
+		 ],REST_Controller::HTTP_BAD_REQUEST);
+		}
+	}
+
 	public function suratjalan_post()
 	{
 		$sj = $this->post('surat_jalan');
