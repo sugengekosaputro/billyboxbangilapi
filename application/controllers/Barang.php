@@ -52,6 +52,7 @@ class Barang extends REST_Controller {
 					'value'	=>$row['nama_barang'],
 					'id'	=>$row['id_barang'],
 					'harga_beli' =>$row['harga_beli'],
+					'harga_jual' =>$row['harga_jual'],
 					'id_kategori' =>$row['id_kategori'],
 					'foto_barang' => $row['foto_barang'],
 					'stok' => $row['stok'],
