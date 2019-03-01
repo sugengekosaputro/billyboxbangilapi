@@ -46,15 +46,13 @@ class Barang extends REST_Controller {
 		$result = $this->barang_model->tampilBarangByKeyword($key,null);
 		if($result){
 			foreach($result as $row){
-
 				$arr['query'] = $key;
 				$arr['suggestions'][] = array(
 					'value'	=>$row['nama_barang'],
 					'id'	=>$row['id_barang'],
-					'harga_beli' =>$row['harga_beli'],
+					'harga_beli' => number_format($row['harga_beli']),
 					'id_kategori' =>$row['id_kategori'],
 					'foto_barang' => $row['foto_barang'],
-					'stok' => $row['stok'],
 				);
 			}
 			$this->response($arr,REST_Controller::HTTP_OK);
@@ -217,27 +215,6 @@ class Barang extends REST_Controller {
 					'message' => 'Data Berhasil Diperbarui WITH FILE FIXED Change 404 -> 201'
 				],REST_Controller::HTTP_OK);
 			}
-		}
-	}
-
-	public function stok_put()
-	{
-		$id = $this->put('id_barang');
-		$data = array(
-			'stok' => $this->put('stok'),
-		);
-		
-		$update = $this->barang_model->updateBarang($id,$data);
-		if ($update) {
-			$this->response([
-				'status' => TRUE,
-				'message' => 'Stok Diperbarui'
-			],REST_Controller::HTTP_OK);
-		} else {
-			$this->response([
-				'status' => FALSE,
-				'message' => 'Stok Gagal Diperbarui'
-			],REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
 
