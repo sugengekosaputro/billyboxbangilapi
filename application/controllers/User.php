@@ -43,13 +43,12 @@ class User extends REST_Controller {
 	{	
 		$config['upload_path']    = './assets/upload/user/';
 		$config['allowed_types']  = 'gif|jpg|jpeg|png';
-		$config['max_size']       = 100000;
-		$config['max_width']      = 100000;
-		$config['max_height']     = 100000;
+		$config['max_size']       = 100000; //kb
+		$config['max_width']      = 100000; //px
+		$config['max_height']     = 100000; //px
 		$config['file_name'] 			= $this->post('username');
 
 		$this->load->library('upload', $config);
-
 		if (!$this->upload->do_upload('foto_user')){
 			$error = array('error' => $this->upload->display_errors());
 			$this->response($error,500);
